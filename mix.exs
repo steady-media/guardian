@@ -6,7 +6,7 @@ defmodule Guardian.Mixfile do
   @maintainers [
     "Daniel Neighman",
     "Sonny Scroggin",
-    "Sean Callan",
+    "Sean Callan"
   ]
 
   def project do
@@ -17,20 +17,19 @@ defmodule Guardian.Mixfile do
       elixir: "~> 1.3",
       package: package(),
       source_url: @url,
-      build_embedded: Mix.env == :prod,
-      start_permanent: Mix.env == :prod,
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
       maintainers: @maintainers,
       description: "Elixir Authentication framework",
       homepage_url: @url,
       docs: docs(),
       deps: deps(),
-      dialyzer: [plt_file: ".dialyzer/local.plt",
-                 plt_add_deps: :project]
+      dialyzer: [plt_file: ".dialyzer/local.plt", plt_add_deps: :project]
     ]
   end
 
   def application do
-    [applications: [:logger, :poison, :jose, :uuid]]
+    [applications: [:logger, :poison, :jose, :elixir_uuid]]
   end
 
   def docs do
@@ -41,17 +40,19 @@ defmodule Guardian.Mixfile do
   end
 
   defp deps do
-    [{:jose, "~> 1.8"},
-     {:phoenix, "~> 1.2 and < 1.4.0", optional: true},
-     {:plug, "~> 1.3"},
-     {:poison, ">= 1.3.0 and < 4.0.0"},
-     {:uuid, ">=1.1.1"},
+    [
+      {:jose, "~> 1.8"},
+      {:phoenix, "~> 1.2 and < 1.4.0", optional: true},
+      {:plug, "~> 1.3"},
+      {:poison, ">= 1.3.0 and < 4.0.0"},
+      {:elixir_uuid, "~> 1.2.0"},
 
-     # Dev and Test dependencies
-     {:credo, "~> 0.6.1", only: [:dev, :test]},
-     {:dialyxir, "~> 0.4.3", only: [:dev, :test]},
-     {:earmark, ">= 0.0.0", only: :dev},
-     {:ex_doc, "~> 0.12", only: :dev}]
+      # Dev and Test dependencies
+      {:credo, "~> 0.6.1", only: [:dev, :test]},
+      {:dialyxir, "~> 0.4.3", only: [:dev, :test]},
+      {:earmark, ">= 0.0.0", only: :dev},
+      {:ex_doc, "~> 0.12", only: :dev}
+    ]
   end
 
   defp package do
